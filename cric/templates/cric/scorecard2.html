@@ -1,0 +1,405 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="../../static/css/blueTheme.css">
+        <style>
+         a{
+            display: block;
+            text-decoration: none;
+        }
+        #spaceid{
+            height:102px;
+        }
+        #firstdiv{
+
+        }
+       
+        #map4 {
+          width: 100%;
+        }
+            
+              
+        #spaceid{
+            height:102px;
+        }
+        #seconddiv{
+          text-align: left;
+          background-color: aquamarine;
+
+        }
+        
+          
+          .custom-select {
+                position: relative;
+                font-family: Arial;
+            }
+      
+      
+            .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      .dropdown-content a:hover {background-color: #f1f1f1}
+      
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+      }
+      
+       
+    
+        
+        </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+    </head>
+<body>
+
+
+<!--{% for m in matches %}
+<a href="live_scores/{{m.id}}">
+<div id="did">
+<!--{{m.id}}<br>
+{{m.toss}}<br>
+{{m.srs}} {{m.mnum}}<br>
+{{m.mchstate}}<br>
+{{m.status}}
+<br>
+<!--{{ m.official.umpire1.name }}
+{{m.team1.name}}<br>
+
+{{ m.team1.squad.0 }}
+{{ m.team1.squad.1 }}
+
+</div></a>
+<br><br>
+
+{% endfor %}-->
+<div id="spaceid">
+
+    <div class="rca-row">
+        <div class="rca-column-12">
+          <!--Widget Inner -->
+          <div class="rca-menu-scroll rca-left-border">
+            <ul class="rca-season-list">
+              
+              <li>
+                <select class="dropbtn"  onchange="location = this.value;">
+                   <option>Choose an option</option> 
+                      {% for m in matches %}
+                      <option value="live_scores/{{m.id}}">{{m.team1.name}} vs {{m.team2.name}}</option> 
+                  {% endfor %}
+                </select>
+              </li>
+              <li>
+                <a href="/">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'matchinfo' %}">
+                    Live Matches
+                  </a>
+                </li>
+              <li>
+                <a href="/widgets.html">
+                  Gallery
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'ranking' %}">
+                  Ranking
+                </a>
+              </li>
+             
+            </ul>
+          </div>
+        </div>
+      </div>
+
+</div>
+<div class="container">  
+    <div class="row">  
+      <div class="col-md-2" id="firstdiv">
+        <input type="hidden" value="{{id}}" id="idnum">
+    </div>  
+      
+      <div class="col-md-9" id="seconddiv">
+        
+        {% if overin1 %}
+        {%else%}
+
+      <h1>Match State</h1>
+       {% endif %}
+       
+       {{lscore.batting.team}} VS {{lscore.bowling.team}} Live Cricket Score, Commentary<br>
+        <br>
+        
+       <strong><h2>{{lscore.bowling.team}}</strong>{% if overin3 %} {{lscore.bowling.score.0.runs}}/{{lscore.bowling.score.0.wickets}}
+       ({{lscore.bowling.score.0.overs}})
+        {% endif %}
+       {% if overin4 %}
+
+       ,{{lscore.bowling.score.1.runs}}/{{lscore.bowling.score.1.wickets}}
+       ({{lscore.bowling.score.1.overs}})</h2>
+
+       {% endif %}
+       <br>
+        <h2>
+            
+        
+       <strong>{{lscore.batting.team}}</strong> {{lscore.batting.score.0.runs}}/{{lscore.batting.score.0.wickets}}
+       ({{lscore.batting.score.0.overs}})
+
+       
+       {% if overin2 %}
+
+       ,{{lscore.batting.score.1.runs}}/{{lscore.batting.score.1.wickets}}
+       ({{lscore.batting.score.1.overs}})
+        </h2>
+
+       {% endif %}
+      
+       <br>
+       
+
+        
+       <div class="table-area">
+        <table class="table table-striped">
+      <thead>
+        <tr>
+          
+          <th><h5><b>Batsman</b></h1></th>
+            <th><h5><b></b></h1></th>
+            <th><h5><b>Run</b></h1></th>
+              <th><h5><b>Ball</b></h1></th>
+                <th><h5><b>4s</b></h1></th>
+                  <th><h5><b>6s</b></h1></th>         
+          
+        </tr>
+      </thead>
+
+      <tbody>        
+            {% for i in bat %}
+            <tr>
+            <td><h5>{{i.name}}</h5></td>
+            <td><h6>{{i.dismissal}}</h6></td>
+            <td><h6>{{i.runs}}</h6></td>
+            <td><h6>{{i.balls}}</h6></td>
+            <td><h6>{{i.fours}}</h6></td>
+            <td><h6>{{i.six}}</h6></td>
+            </tr>
+            {% endfor %}
+      </tbody>
+</table>
+    
+   
+      </div>
+      
+      
+<br>
+<h4>Fall of wickets</h4>
+{% for i in fall_wickets %} 
+<small class="smtxt">{{i.score}}-{{i.wkt_num}}({{i.name}},{{i.overs}})</small>
+{% endfor %}
+<br>
+<br>
+
+<div class="table-area">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th><h5><b>Name</b></h1></th>
+        <th><h5><b>Overs</b></h1></th>
+        <th><h5><b>maidens</b></h1></th>
+          <th><h5><b>runs</b></h1></th>
+            <th><h5><b>wickets</b></h1></th>
+              <th><h5><b>wides</b></h1></th> 
+                <th><h5><b>no balls</b></h1></th>         
+      
+    </tr>
+  </thead>
+
+  <tbody>        
+        {% for i in bowl %}
+        <tr>
+        <td><h5>{{i.name}}</h5></td>
+        <td><h6>{{i.overs}}</h6></td>
+        <td><h6>{{i.maidens}}</h6></td>
+        <td><h6>{{i.runs}}</h6></td>
+        <td><h6>{{i.wickets}}</h6></td>
+        <td><h6>{{i.wides}}</h6></td>
+        <td><h6>{{i.nballs}}</h6></td>
+        </tr>
+        {% endfor %}
+  </tbody>
+</table>
+
+
+  </div>
+  
+<br><br>
+
+
+
+
+
+
+{% if bat1 %}
+
+<div class="table-area">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th><h5><b>Batsman</b></h1></th>
+        <th><h5><b></b></h1></th>
+        <th><h5><b>Run</b></h1></th>
+          <th><h5><b>Ball</b></h1></th>
+            <th><h5><b>4s</b></h1></th>
+              <th><h5><b>6s</b></h1></th>         
+      
+    </tr>
+  </thead>
+
+  <tbody>        
+        {% for i in bat1 %}
+        <tr>
+        <td><h5>{{i.name}}</h5></td>
+        <td><h6>{{i.dismissal}}</h6></td>
+        <td><h6>{{i.runs}}</h6></td>
+        <td><h6>{{i.balls}}</h6></td>
+        <td><h6>{{i.fours}}</h6></td>
+        <td><h6>{{i.six}}</h6></td>
+        </tr>
+        {% endfor %}
+  </tbody>
+</table>
+
+
+  </div>
+  {% endif %}
+  
+<br>
+{% if fall_wickets1 %}
+<h4>Fall of wickets</h4>
+{% for i in fall_wickets1 %} 
+<small class="smtxt">{{i.score}}-{{i.wkt_num}}({{i.name}},{{i.overs}})</small>
+{% endfor %}
+<br>
+{% endif %}
+<br>
+
+{% if bowl1 %}
+<div class="table-area">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      
+      <th><h5><b>Name</b></h1></th>
+        <th><h5><b>Overs</b></h1></th>
+        <th><h5><b>maidens</b></h1></th>
+          <th><h5><b>runs</b></h1></th>
+            <th><h5><b>wickets</b></h1></th>
+              <th><h5><b>wides</b></h1></th> 
+                <th><h5><b>no balls</b></h1></th>         
+      
+    </tr>
+  </thead>
+
+  <tbody>        
+        {% for i in bowl1 %}
+        <tr>
+        <td><h5>{{i.name}}</h5></td>
+        <td><h6>{{i.overs}}</h6></td>
+        <td><h6>{{i.maidens}}</h6></td>
+        <td><h6>{{i.runs}}</h6></td>
+        <td><h6>{{i.wickets}}</h6></td>
+        <td><h6>{{i.wides}}</h6></td>
+        <td><h6>{{i.nballs}}</h6></td>
+        </tr>
+        {% endfor %}
+  </tbody>
+</table>
+
+
+  </div>
+  {% endif %}
+<br><br>
+
+
+
+
+</div>
+      <div class="col-md-1" id="thirdtdiv"></div>
+                    
+
+            
+      
+    </div>
+    </div>
+
+    <script>
+
+      function reffun(){
+        setInterval("process()",30000);
+      }
+      function process(){
+      var idnum = $("#idnum").val();
+      
+       $.ajax({
+                    url:"{% url 'scorelive' %}",
+                    type:"POST",
+                    data: {
+                    "id":idnum,
+                    csrfmiddlewaretoken:"{{csrf_token}}"
+                    },
+                    dataType:"html",
+                    success:function(citydata){    
+                        $("#seconddiv").html(citydata);
+                          
+                        }
+                    });
+      
+      }
+      
+      </script>
+      
+
+</body>
+</html>

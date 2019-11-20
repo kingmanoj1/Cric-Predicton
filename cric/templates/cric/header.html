@@ -1,0 +1,63 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            {% block title %}
+                
+            {% endblock title %}                
+        </title>
+        <link href="{% static 'css/mystyle.css' %}" rel="stylesheet">
+        <script src="{% static 'js/myjs.js' %}"></script>
+    </head>
+    <body>
+        <div id="main">
+            <div id="hh">
+                <h1 id="hdr">Weather Application</h1>
+                <span id="sp">
+
+                   
+                    
+                    {% if user.is_authenticated %}
+
+                    <a href="{% url 'home' %}"> Weather</a>&nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'about' %}"> Home</a>&nbsp;&nbsp;&nbsp;
+                    <a href="{%url 'updatepassword'%}"> UpdatePassword</a>&nbsp;&nbsp;&nbsp;
+                   <a href="{% url 'contact' %}"> Contact Us</a>&nbsp;&nbsp;&nbsp;
+                   
+                   <a href="{% url 'feedback' %}"> Feedback</a>&nbsp;&nbsp;&nbsp;
+                   <a href="{% url 'logout' %}"> Logout</a>&nbsp;&nbsp;&nbsp;
+                    
+                   {% else %}
+                   <a href="{% url 'about' %}"> Home</a>&nbsp;&nbsp;&nbsp;
+ 
+                   <a href="{% url 'login' %}"> Login</a>&nbsp;&nbsp;&nbsp;
+
+                   <a href="{% url 'contact' %}"> Contact Us</a>&nbsp;&nbsp;&nbsp;
+                   
+                   <a href="{% url 'feedback' %}"> Feedback</a>&nbsp;&nbsp;&nbsp;
+                   
+
+
+
+                    {% endif %}
+                    
+                        
+                    
+                  
+                   
+                </span>
+            </div>
+            {% block content %}
+
+            
+            {% endblock content %}
+            <div id ="foot">
+                developed by &copy;manoj bhatt
+            </div>
+
+    </div>
+            
+    </body>
+</html>

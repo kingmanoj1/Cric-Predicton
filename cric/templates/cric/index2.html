@@ -1,0 +1,370 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Home</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    
+    <link rel="stylesheet" href="../../static/css/blueTheme.css">
+    <style>
+      a{
+        text-decoration: none;
+      }
+    
+    .custom-select {
+          position: relative;
+          font-family: Arial;
+      }
+
+
+      .dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+    </style>
+  </head>
+  <body>
+    <!--Whole Container -->
+    <div class="rca-container">
+
+      <!--Logo Holder-->
+      <div class="rca-row">
+        <div class="rca-column-12">
+          <div class="rca-logo">
+            <h2>
+              <span><img src="{% static 'images/logo-01.svg' %}" style="width: 50px;"></span><span></span>
+            </h2>
+          </div>
+        </div>
+      </div>
+      
+
+
+      <!--Widget Outer-->
+      <div class="rca-row">
+        <div class="rca-column-12">
+          <!--Widget Inner -->
+          <div class="rca-menu-scroll rca-left-border">
+            <ul class="rca-season-list">
+              
+              <li>
+                <select class="dropbtn"  onchange="location = this.value;">
+                  <option>Choose an option</option> 
+                      {% for m in matches %}
+                      <option value="live_scores/{{m.id}}">{{m.team1.name}} vs {{m.team2.name}}</option> 
+                  {% endfor %}
+                </select>
+              </li>
+              <li>
+                <a href="{% url 'matchinfo' %}">
+                  Live Matches
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Gallery
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'ranking' %}" target="_blank">
+                  Ranking
+                </a>
+              </li>
+             
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--Widget Outer-->
+      <div class="rca-row">
+        <!--Widget Inner -->
+        <div class="rca-column-4">
+          <!--Live Season-->
+          <div class="rca-menu-widget rca-live-season rca-left-border">
+            <a href="live_scores/{{matches.0.id}}" class="rca-padding">
+              <span class="rca-match-title rca-live-text"><b>{{matches.0.team1.name}} vs {{matches.0.team2.name}} </b> </span>
+              <br>{{matches.0.toss}}
+              {% if inpro1 %}
+              <span class="rca-live-label rca-right">Live</span>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+        
+        <!--Widget Inner -->
+        <div class="rca-column-4">
+          <!--Upcoming Match-->
+          <div class="rca-menu-widget rca-left-border">
+            <a href="live_scores/{{matches.1.id}}" class="rca-padding">
+              <span class="rca-match-title">{{matches.1.team1.name}} vs {{matches.1.team2.name}} </b> </span>
+              <br>{{matches.1.toss}}
+              {% if inpro2 %}
+              <span class="rca-live-label rca-right">Live</span>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+
+        <!--Widget Inner -->
+        <div class="rca-column-4">
+          <!--Upcoming Match-->
+          <div class="rca-menu-widget rca-left-border">
+            <a href="live_scores/{{matches.2.id}}" class="rca-padding">
+              <span class="rca-match-title">{{matches.2.team1.name}} vs {{matches.2.team2.name}} </b> </span>
+              <br>{{matches.2.toss}}
+              {% if inpro3 %}
+              <span class="rca-live-label rca-right">Live</span>
+              {% endif %}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="rca-row">
+        <div class="rca-column-12">
+          <div class="rca-blog-image">
+            <h2></h2>
+          </div>
+        </div>
+      </div>
+      <div class="rca-row">
+        <div class="rca-column-3">
+          <!--Match Series-->
+          <div class="rca-news-widget rca-padding">
+            <h3>Latest News</h3>
+            <div class="rca-post">
+              <h4>
+                <a href="#">{{news.0.heading1}}
+                </a>
+              </h4>
+              <p>{{news.0.info1}}</p>
+             
+            </div>
+            <div class="rca-post">
+                <h4>
+                  <a href="#">{{news.0.heading2}}
+                  </a>
+                </h4>
+                <p>{{news.0.info2}}</p>
+               
+              </div>
+              <div class="rca-post">
+                  <h4>
+                    <a href="#">{{news.0.heading3}}
+                    </a>
+                  </h4>
+                  <p>{{news.0.info3}}</p>
+                 
+                </div>
+          </div>
+
+          <div class="rca-blog-image">
+            <h2></h2>
+          </div>
+        </div>
+        <div class="rca-column-5">
+          <!--Match Series-->
+          <div class="rca-medium-widget rca-blog-content">
+            <div class="rca-blog-image">
+              <a href="#">
+                <img src="{{img.0.im1.url}}">
+              </a>
+              <div class="rca-blog-head">
+                {{img.0.heading1}}
+              </div>
+            </div>
+            <div class="rca-padding">
+              {{img.0.info1}}
+            </div>           
+          </div>
+
+          <div class="rca-blog-image">
+            <a href="#">
+              <img src="{% static 'images/banner.jpg' %}">
+            </a>
+          </div>
+
+        </div>
+        <div class="rca-column-4">
+          <!--Match Series-->
+
+          <div class="rca-news-widget rca-padding">
+              <h3>Latest News</h3>
+              <div class="rca-post">
+                  <h4>
+                    <a href="#">{{news.0.heading4}}
+                    </a>
+                  </h4>
+                  <p>{{news.0.info4}}</p>
+                 
+                </div>
+                <div class="rca-post">
+                    <h4>
+                      <a href="#">{{news.0.heading5}}
+                      </a>
+                    </h4>
+                    <p>{{news.0.info5}}</p>
+                   
+                  </div>
+                  <div class="rca-post">
+                      <h4>
+                        <a href="#">{{news.0.heading6}}
+                        </a>
+                      </h4>
+                      <p>{{news.0.info6}}</p>
+                     
+                    </div>
+            </div>
+          
+          
+          <div class="rca-blog-image">
+            <h2></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="rca-row">
+        <div class="rca-column-12">
+          <div class="rca-mini-widget rca-tab-simple">
+            <ul class="rca-tab-list">
+              <li class="rca-tab-link active" data-tab="rtab-1" onclick="showTab(this);">Photos</li>
+              <li class="rca-tab-link" data-tab="rtab-2" onclick="showTab(this);">Gallery</li>
+            </ul>
+            <div id="rtab-1" class="rca-padding rca-tab-content active">              
+              <div class="rca-column-4">
+                <div class="rca-blog-content">
+                  <div class="rca-blog-image">
+                    <a href="#">
+                        <img src="{{img.0.im2.url}}">
+                    </a>
+                    <div class="rca-blog-head">
+                        {{img.0.heading2}}
+                    </div>
+                  </div>
+                  <div class="rca-padding">
+                      {{img.0.info2}}
+                  </div>   
+                </div>
+              </div>
+              <div class="rca-column-4">
+                <div class="rca-blog-content">
+                  <div class="rca-blog-image">
+                    <a href="#">
+                        <img src="{{img.0.im3.url}}">
+                    </a>
+                    <div class="rca-blog-head">
+                        {{img.0.heading3}}
+                    </div>
+                  </div>
+                  <div class="rca-padding">
+                      {{img.0.info3}}
+                  </div>   
+                </div>
+              </div>
+              <div class="rca-column-4">
+                <div class="rca-blog-content">
+                  <div class="rca-blog-image">
+                    <a href="#">
+                        <img src="{{img.0.im4.url}}">
+                    </a>
+                    <div class="rca-blog-head">
+                        {{img.0.heading4}}
+                    </div>
+                  </div>
+                  <div class="rca-padding">
+                      {{img.0.info4}}
+                  </div>   
+                </div>
+              </div>
+              <div class="rca-clear"></div>
+            </div>
+            <div id="rtab-2" class="rca-padding rca-tab-content">
+              <div class="rca-clear"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="rca-row">
+        <div class="rca-column-8">
+          <ul class="rca-footer">
+            <li><a href="">About Us</a></li>
+            <li><a href="">Privacy Policy</a></li>
+            <li><a href="">Feedback</a></li>
+            <li><a href="">Site map</a></li>
+          </ul>
+        </div>
+        <div class="rca-column-4">
+          <ul class="rca-footer rca-right">
+            <li>© 2019 <a href="">Yoursite.com</a>, All rights reserved </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+   <script>
+      function showTab(event) {
+        var sourceParent = event.parentElement.parentElement;
+        var sourceChilds = sourceParent.getElementsByClassName("rca-tab-content");
+        var sourceLinkParent = sourceParent.getElementsByClassName("rca-tab-link");
+        for (var i=0; i < sourceChilds.length; i++) {
+          sourceChilds.item(i).classList.remove("active");
+        }
+        for (var i=0; i < sourceLinkParent.length; i++) {
+          sourceLinkParent.item(i).classList.remove("active");
+        }
+        var dataTab= event.getAttribute("data-tab");
+
+        event.classList.add("active");
+        // document.getElementById(dataTab).className = tabClass + ' active';
+        document.getElementById(dataTab).className += ' active';
+      }
+
+    </script>
+
+  </body>
+</html>

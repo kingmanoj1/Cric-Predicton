@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Info.
+        </title>
+        <style>
+        
+        </style>
+    </head>
+<body onload="fun1()">
+ 
+
+
+    {% for m in matches %}
+
+    {{m.id}}
+    <br><br>
+
+    {% endfor %}
+</body>
+</html>
+<script>
+   
+    function fun(){
+
+      setInterval("process()",30000);
+    
+    }
+    function process(){
+        /*$.ajax({
+                url: "demo_test.txt",
+                success: function(result){
+                $("#div1").html(result);
+                }});*/
+                alert("sec");
+
+
+    }
+   
+
+</script>

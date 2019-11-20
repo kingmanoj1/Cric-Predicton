@@ -1,0 +1,337 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+
+    <link rel="stylesheet" href="../../static/css/blueTheme.css">
+        <style>
+         a{
+            display: block;
+            text-decoration: none;
+        }
+        #spaceid{
+            height:102px;
+        }
+        #seconddiv{
+          text-align: left;
+          background-color: aquamarine;
+
+        }
+        
+          
+          .custom-select {
+                position: relative;
+                font-family: Arial;
+            }
+      
+      
+            .dropbtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      .dropdown-content a:hover {background-color: #f1f1f1}
+      
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+      }
+      
+          </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        
+    </head>
+<body onload="reffun()">
+
+
+<!--{% for m in matches %}
+<a href="live_scores/{{m.id}}">
+<div id="did">
+<!--{{m.id}}<br>
+{{m.toss}}<br>
+{{m.srs}} {{m.mnum}}<br>
+{{m.mchstate}}<br>
+{{m.status}}
+<br>
+<!--{{ m.official.umpire1.name }}
+{{m.team1.name}}<br>
+
+{{ m.team1.squad.0 }}
+{{ m.team1.squad.1 }}
+
+</div></a>
+<br><br>
+
+{% endfor %}-->
+<div id="spaceid">
+    <div class="rca-row">
+        <div class="rca-column-12">
+          <!--Widget Inner -->
+          <div class="rca-menu-scroll rca-left-border">
+            <ul class="rca-season-list">
+              
+              <li>
+                <select class="dropbtn"  onchange="location = this.value;">
+                   <option>Choose an option</option> 
+                      {% for m in matches %}
+                      <option value="live_scores/{{m.id}}">{{m.team1.name}} vs {{m.team2.name}}</option> 
+                  {% endfor %}
+                </select>
+              </li>
+              <li>
+                <a href="/">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'matchinfo' %}">
+                    Live Matches
+                  </a>
+                </li>
+              <li>
+                <a href="/widgets.html">
+                  Gallery
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'ranking' %}">
+                  Ranking
+                </a>
+              </li>
+             
+            </ul>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="container">  
+    <div class="row">  
+      <div class="col-md-1" id="firstdiv">
+        <input type="hidden" value="{{id}}" id="idnum">
+    </div>  
+      
+      <div class="col-md-10" id="seconddiv">
+        
+        {% if overin1 %}
+        {%else%}
+
+      <h1>Wait until match is not getting start</h1>
+       {% endif %}
+       {% if overin1 %}
+       {{lscore.batting.team}} VS {{lscore.bowling.team}} Live Cricket Score, Commentary<br>
+        <br>
+        
+       <strong><h2>{{lscore.bowling.team}}</strong>{% if overin3 %} {{lscore.bowling.score.0.runs}}/{{lscore.bowling.score.0.wickets}}
+       ({{lscore.bowling.score.0.overs}})
+        {% endif %}
+       {% if overin4 %}
+
+       ,{{lscore.bowling.score.1.runs}}/{{lscore.bowling.score.1.wickets}}
+       ({{lscore.bowling.score.1.overs}})</h2>
+
+       {% endif %}
+       <br>
+        <h2>
+            
+        
+       <strong>{{lscore.batting.team}}</strong> {{lscore.batting.score.0.runs}}/{{lscore.batting.score.0.wickets}}
+       ({{lscore.batting.score.0.overs}})
+
+       
+       {% if overin2 %}
+
+       ,{{lscore.batting.score.1.runs}}/{{lscore.batting.score.1.wickets}}
+       ({{lscore.batting.score.1.overs}})
+        </h2>
+
+       {% endif %}
+      
+       <br>
+       
+
+
+
+       <div class="table-area">
+        <table class="table table-striped">
+      <thead>
+        <tr>
+          
+          <th><h5><b>Batsman</b></h1></th>
+            <th><h5><b>Run</b></h1></th>
+              <th><h5><b>Ball</b></h1></th>
+                <th><h5><b>4s</b></h1></th>
+                  <th><h5><b>6s</b></h1></th>
+          
+          
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <h5>
+          <td><h5>{{lscore.batting.batsman.0.name}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.0.runs}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.0.balls}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.0.fours}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.0.six}}</h5></td>
+          </tr>
+          <tr>
+          <td><h5>{{lscore.batting.batsman.1.name}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.1.runs}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.1.balls}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.1.fours}}</h5></td>
+          <td><h5>{{lscore.batting.batsman.1.six}}</h5></td>
+          <td></td>
+
+          <td></td>
+        </tr>
+        <tr></tr></h5>
+        <tr>
+          
+          <td><h5><b>Bowler</b></h5></td>
+          <td><h5><b>O</b></h5></td>
+          <td><h5><b>M</b></h5></td>
+          <td><h5><b>R</b></h5></td>
+          <td><h5><b>W</b></h5></td>
+          
+        </tr>
+        <tr>
+          
+          <td><h5>{{lscore.bowling.bowler.0.name}}</h5></td>
+          <td><h5>{{lscore.bowling.bowler.0.overs}}</h5></td>
+          <td><h5>{{lscore.bowling.bowler.0.maidens}}</h5></td>
+          
+          <td><h5>{{lscore.bowling.bowler.0.runs}}</h5></td>
+          <td><h5>{{lscore.bowling.bowler.0.wickets}}</h5></td>
+        
+          </tr>
+          
+
+       
+      </tbody>
+    </table>
+    
+    <a href="/alldetail/{{id}}">Scorecard</a>
+      </div>
+      {% endif %}
+      
+<br>
+<br>
+<!--{% for i in num|make_list %}
+{{i}}
+<br>
+{% endfor %}-->
+{% if pl1 %}
+<b>Best 11 for today match</b>
+<br>
+  {% for i in pl1 %}
+  {{i}},
+  {% endfor %}
+<br>
+
+{% for i in pl2 %}
+  {{i}},
+  {% endfor %}
+
+{% else %}
+<b>Wait for 11 </hb>
+{% endif %}
+<br><br>
+
+{% for com in commntry.commentary %}
+{% autoescape off %}
+  {% if com.over %} 
+    
+    {{com.over}}&nbsp;&nbsp;{{com.comm}}
+  {% else %}
+  
+    <h5>{{com.comm}}</h5>
+     
+  {% endif %}
+{% endautoescape %}
+<br><br>
+
+{% endfor %}
+        </div>
+       <!-- {% autoescape off %}
+        {{ commntry }}
+    {% endautoescape %}-->
+
+
+
+      <div class="col-md-1" id="thirdtdiv"></div>
+                    
+
+            
+      
+    </div>
+    </div>
+
+
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.js"
+    integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+
+
+    <script>
+
+      function reffun(){
+        setInterval("process()",30000);
+      }
+      function process(){
+      var idnum = $("#idnum").val();
+      
+       $.ajax({
+                    url:"{% url 'scorelive' %}",
+                    type:"POST",
+                    data: {
+                    "id":idnum,
+                    csrfmiddlewaretoken:"{{csrf_token}}"
+                    },
+                    dataType:"html",
+                    success:function(citydata){    
+                        $("#seconddiv").html(citydata);
+                          
+                        }
+                    });
+      
+      }
+      
+      </script>
+      
+
+</body>
+</html>
